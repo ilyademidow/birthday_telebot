@@ -1,8 +1,10 @@
 const config = require('./config');
 const TeleBot = require('telebot');
 const { DateTime } = require("luxon");
-let jsoning = require('jsoning');
 const lang = require("./lang/ru");
+let schedule = require('node-schedule');
+let jsoning = require('jsoning');
+
 const HEROES_K = "heroes";
 const bot = new TeleBot({
     token: config.authId, // Required. Telegram Bot API token.
@@ -34,6 +36,9 @@ const bot = new TeleBot({
 
 let db = new jsoning(process.env.DB_FILE_PATH || config.dbFile);
 
+schedule.scheduleJob('0 0 ' + config.congratTimeHour + ' * * *', () => {
+    congrat();
+});
 bot.on(['/listbd', '/addbd', '/delbd'], (msg) => executeCommand(msg));
 bot.start();
 
@@ -169,7 +174,7 @@ function congrat() {
             let hero = heroList.filter(h => h.date == (day + "." + month));
             console.log(JSON.stringify(hero));
             if (hero.length > 0) {
-                hero.forEach(hr => sendMsg(hr.name + lang.congratsMsg));
+                hero.forEach(hr => bot.sendMessage(config.chatId, hr.name + lang.congratsMsg));
             }
         }
     });

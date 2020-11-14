@@ -13,9 +13,12 @@
 exports.authId = 
 //Bot name which you've registered. For example "@mysuper_bot"
 exports.apBotName = 
+adda//Chat id which bot will send a congratulations. For example 11111111
+exports.chatId = 
 //Path to any directory in your OS. For example "/home/john"
 exports.dbFile = 
-
+// What time to congrat the person. Set the number. For example 8. So bot congrats them at 8:00
+exports.config.congratTimeHour = 
 ```
 1. Don't forget to rename `<git cloned path>` in following
 `docker run -it --name bd_telebot -v /home/<git cloned path>:/tmp --restart always -e DB_FILE_PATH="/tmp/database.json" node:13.13.0-alpine3.11 node /tmp/commandParser.js`
