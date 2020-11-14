@@ -13,7 +13,7 @@
 exports.authId = 
 //Bot name which you've registered. For example "@mysuper_bot"
 exports.apBotName = 
-adda//Chat id which bot will send a congratulations. For example 11111111
+//Chat id which bot will send a congratulations. For example 11111111
 exports.chatId = 
 //Path to any directory in your OS. For example "/home/john"
 exports.dbFile = 
