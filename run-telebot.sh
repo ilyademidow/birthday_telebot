@@ -10,4 +10,4 @@ echo 'container has been removed'
 docker rmi $IMG_NAME
 echo 'image has been removed'
 docker build -t $IMG_NAME .
-docker run -dit --name $CONTAINER_NAME -v $HOME_DIR/package.json:/package.json -v $HOME_DIR:$DOCKER_WORK_DIR --restart always -e DB_FILE_PATH="$DOCKER_WORK_DIR/database.json" $IMG_NAME node $DOCKER_WORK_DIR/bd-telebot.js
+docker run -dit --name $CONTAINER_NAME -v $HOME_DIR/database.json:$DOCKER_WORK_DIR/databse.json -e DB_FILE_PATH="$DOCKER_WORK_DIR/database.json" $IMG_NAME

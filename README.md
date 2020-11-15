@@ -23,7 +23,7 @@ exports.chatId =
 //Path to any directory in your OS. For example "/home/john"
 exports.dbFile = 
 // What time to congrat the person. Set the number. For example 8. So bot congrats them at 8:00
-exports.config.congratTimeHour = 
+exports.congratTimeHour = 
 ```
 ### How to run in Docker in Linux
 1. Change mode for `run-telebot.sh` file to be able to execute it. In Linux run `chmod 764 run-telebot.sh`
