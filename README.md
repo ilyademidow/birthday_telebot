@@ -6,7 +6,7 @@
 ## How to run in container
 1. Clone this repo to any directory. We define it `<git cloned path>`
 1. Create file `config.js` and store it in `<git cloned path>`
-1. Insert folllowing lines to `config.js` and set your values
+1. Insert following lines to `config.js` and set your values
 ```
 (follow official Telegram Bot documentation)
 //Auth key which you've got. For example "111111:Xxxxxxxxxxxxxxxxxxxxxxxx"
@@ -28,7 +28,7 @@ exports.config.congratTimeHour =
 1. Install Node.js >= 12.8 and NPM
 1. Clone this repo to any directory. We define it `<git cloned path>`
 1. Create file `config.js` and store it in `<git cloned path>`
-1. Insert folllowing lines to `config.js` and set your values
+1. Insert following lines to `config.js` and set your values
 ```
 (follow official Telegram Bot documentation)
 //Auth key which you've got. For example "111111:Xxxxxxxxxxxxxxxxxxxxxxxx"
