@@ -5,7 +5,7 @@ exports.howToDelMsg = "Отправьте /delbd ник_в_Телеге - DD.MM\
 exports.wrongDelFormatMsg = `Неверный формат. Повторите команду ${this.howToDelMsg}`;
 exports.wrongDateMsg = 'Неверная дата! Повторите команду';
 
-exports.emptyListMsg = `Список людей путой. Вы можете добавить людей вот так: ${this.howToAddMsg}`;
+exports.emptyListMsg = `Список людей пустой. Вы можете добавить людей вот так: ${this.howToAddMsg}`;
 exports.noSuchHeroMsg = "Нет такого человека в списке. Список:\n";
 
 exports.sucNewListMsg = "Сделано! Список:\n";

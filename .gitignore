@@ -1,4 +1,4 @@
 node_modules/
 config.js
 database.json
-run-telebot.sh
+package-lock.json
