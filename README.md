@@ -30,7 +30,7 @@ exports.config.congratTimeHour =
 1. Run `run-telebot.sh`. In Linux `./run-telebot.sh`
 1. Enjoy!
 
-## How to run directly
+### How to run directly
 1. Install Node.js >= 12.8 and NPM
 1. Install all required libraries. Run `npm install`
 1. Run `node bd-telebot.js`
