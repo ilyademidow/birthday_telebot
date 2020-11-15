@@ -1,7 +1,7 @@
 # This is one more Telegram bot
 
 * Bot congrats chat members at they birthday
-* You can manage a list of chat members
+* You can manage a list of chat members which bot will congrat
 
 ## Prerequisits
 1. You've registered your bot so you have Bot Auth Key and Bot Name
@@ -25,9 +25,8 @@ exports.dbFile =
 // What time to congrat the person. Set the number. For example 8. So bot congrats them at 8:00
 exports.congratTimeHour = 
 ```
-### How to run in Docker in Linux
-1. Change mode for `run-telebot.sh` file to be able to execute it. In Linux run `chmod 764 run-telebot.sh`
-1. Run `run-telebot.sh`. In Linux `./run-telebot.sh`
+### How to run in Docker
+1. Run `run-telebot.sh` script. In Linux `./run-telebot.sh`
 1. Enjoy!
 
 ### How to run directly
