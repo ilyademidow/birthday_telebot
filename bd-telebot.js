@@ -170,7 +170,7 @@ const pushHero = (hero) => new Promise((resolve, reject) => {
 function congrat() {
     db.get(HEROES_K).then((heroList) => {
         if (heroList.length > 0) {
-            let [month, day, year] = new Date().toLocaleDateString("ru-RU").split("/");
+            let [day, month, year] = new Date().toLocaleDateString("ru-RU").split(".");
             let hero = heroList.filter(h => h.date == (day + "." + month));
             console.log(JSON.stringify(hero));
             if (hero.length > 0) {
