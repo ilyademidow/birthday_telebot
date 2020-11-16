@@ -10,4 +10,4 @@ echo 'container has been removed'
 docker rmi $IMG_NAME
 echo 'image has been removed'
 docker build -t $IMG_NAME .
-docker run -dit --name $CONTAINER_NAME -v $HOME_DIR/lib:$DOCKER_WORK_DIR/lib --restart always -e DB_FILE_PATH="$DOCKER_WORK_DIR/database.json" $IMG_NAME
+docker run -dit --name $CONTAINER_NAME -v $HOME_DIR/lib:$DOCKER_WORK_DIR/lib --restart always -e DB_FILE_PATH="$DOCKER_WORK_DIR/lib/database.json" $IMG_NAME
