@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('./lib/config');
 const TeleBot = require('telebot');
 const { DateTime } = require("luxon");
 const lang = require("./lang/ru");

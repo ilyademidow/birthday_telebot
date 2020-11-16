@@ -11,7 +11,7 @@
 
 ### Get the scripts and setup required parameters
 1. Clone this repo to any directory. We define it `<git cloned path>`
-1. Create file `config.js` and store it in `<git cloned path>`
+1. Create file `config.js` and store it in `<git cloned path>/lib`
 1. Insert following lines to `config.js` and set your values
 ```
 //Auth key which you've got. For example "111111:Xxxxxxxxxxxxxxxxxxxxxxxx"
