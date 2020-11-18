@@ -120,9 +120,8 @@ const delBD = (command) => new Promise((resolve, reject) => {
         db.get(HEROES_K).then((heroes) => {
             if (heroes.length > 0) {
                 if (heroes.some(h => h.name === heroName)) {
-                    let hero = heroes.filter(h => h.name === heroName);
-                    heroes.splice(heroes.indexOf(hero), 1);
-                    db.set(HEROES_K, heroes).then(() => resolve(lang.sucNewListMsg));
+                    let nHeroes = heroes.filter(h => h.name.toUpperCase() !== heroName.toUpperCase());
+                    db.set(HEROES_K, nHeroes).then(() => resolve(lang.sucNewListMsg)).catch((err) => reject(err));
                 } else {
                     console.log("no such key");
                     resolve(lang.noSuchHeroMsg);
