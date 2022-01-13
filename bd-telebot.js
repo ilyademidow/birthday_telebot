@@ -6,6 +6,7 @@ let schedule = require('node-schedule');
 let jsoning = require('jsoning');
 
 const HEROES_GRID_KEY = "heroes";
+try {
 const bot = new TeleBot({
     token: config.authId, // Required. Telegram Bot API token.
     polling: { // Optional. Use polling.
@@ -201,4 +202,7 @@ function congrat() {
             }
         }
     });
+}
+} catch(e) {
+  console.error(e);
 }
