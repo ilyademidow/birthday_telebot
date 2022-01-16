@@ -6,7 +6,7 @@ let schedule = require('node-schedule');
 let jsoning = require('jsoning');
 
 const HEROES_GRID_KEY = "heroes";
-try {
+
 const bot = new TeleBot({
     token: config.authId, // Required. Telegram Bot API token.
     polling: { // Optional. Use polling.
@@ -34,51 +34,58 @@ const bot = new TeleBot({
     // }
 });
 
-
 let db = new jsoning(process.env.DB_FILE_PATH || config.dbFile);
-
-schedule.scheduleJob('0 0 ' + config.congratTimeHour + ' * * *', () => {
-    congrat();
-});
-bot.on(['/listbd', '/addbd', '/delbd'], (msg) => executeCommand(msg));
-bot.start();
 
 let heroModel = {
     name: "",
     date: ""
 }
 
+try {
+    schedule.scheduleJob('0 0 ' + config.congratTimeHour + ' * * *', () => {
+        congrat();
+    });
+    bot.on(['/listbd', '/addbd', '/delbd'], (msg) => executeCommand(msg));
+    bot.start();
+} catch (err) {
+    console.error(err);
+}
+
 /**
  * Process a bot command
- * @param {str} msg 
+ * @param {str} msg Message from a chat
  */
 function executeCommand(msg) {
-    console.log(JSON.stringify(msg));
-    let text = msg.text.replace(config.apBotName, "").trim();
-    let command = text.split(" ")[0];
-    console.log('execute ' + command);
+    try {
+        console.log(JSON.stringify(msg));
+        let text = msg.text.replace(config.apBotName, "").trim();
+        let command = text.split(" ")[0];
+        console.log('execute ' + command);
 
 
-    switch (command) {
-        case '/listbd':
-            getBDList().then((list) => bot.sendMessage(msg.chat.id, list));
-            break;
-        case '/addbd':
-            addBD(text)
-                .then(
-                    (addResult) => getBDList().then(
-                        (list) => bot.sendMessage(msg.chat.id, addResult + list)
-                    ).catch((err) => bot.sendMessage(msg.chat.id, err))
-                )
-                .catch((addResult) => bot.sendMessage(msg.chat.id, addResult));
-            break;
-        case '/delbd':
-            delBD(text)
-                .then((delResult) => getBDList().then(
-                    (list) => bot.sendMessage(msg.chat.id, delResult + list)
-                ))
-                .catch((delResult) => bot.sendMessage(msg.chat.id, delResult));
-            break;
+        switch (command) {
+            case '/listbd':
+                getBDList().then((list) => bot.sendMessage(msg.chat.id, list)).catch((err) => console.error(err));
+                break;
+            case '/addbd':
+                addBD(text)
+                    .then(
+                        (addResult) => getBDList().then(
+                            (list) => bot.sendMessage(msg.chat.id, addResult + list)
+                        ).catch((err) => bot.sendMessage(msg.chat.id, err))
+                    )
+                    .catch((addResult) => bot.sendMessage(msg.chat.id, addResult));
+                break;
+            case '/delbd':
+                delBD(text)
+                    .then((delResult) => getBDList().then(
+                        (list) => bot.sendMessage(msg.chat.id, delResult + list)
+                    ))
+                    .catch((delResult) => bot.sendMessage(msg.chat.id, delResult));
+                break;
+        }
+    } catch (err) {
+        console.error(err);
     }
 }
 
@@ -88,23 +95,26 @@ function executeCommand(msg) {
  * @returns command processing result
  */
 const addBD = (command) => new Promise((resolve, reject) => {
-    let entity = command.replace("/addbd", "").split("-");
-    heroModel.name = entity[0].trim();
-    if (entity.length < 2 || heroModel.name == "" || !heroModel.name.includes("@")) {
-        reject(lang.wrongAddFormatMsg);
-    }
-    heroModel.date = entity[1].trim();
-    if (heroModel.date == "" || heroModel.date.length != 5 || heroModel.date.split(".").length != 2) {
-        reject(lang.wrongAddFormatMsg);
-    }
     try {
-        let dateForCheck = heroModel.date.split(".");
-        if (!DateTime.fromObject({ year: 1970, month: dateForCheck[1], day: dateForCheck[0] }).isValid) {
-            reject(lang.wrongDateMsg);
+        let entity = command.replace("/addbd", "").split("-");
+        heroModel.name = entity[0].trim();
+        if (entity.length < 2 || heroModel.name == "" || !heroModel.name.includes("@")) {
+            reject(lang.wrongAddFormatMsg);
+        } else {
+            heroModel.date = entity[1].trim();
+            if (heroModel.date == "" || heroModel.date.length != 5 || heroModel.date.split(".").length != 2) {
+                reject(lang.wrongAddFormatMsg);
+            } else {
+                let dateForCheck = heroModel.date.split(".");
+                if (!DateTime.fromObject({ year: 1970, month: dateForCheck[1], day: dateForCheck[0] }).isValid) {
+                    reject(lang.wrongDateMsg);
+                } else {
+                    pushHero(heroModel).then((result) => resolve(result)).catch((err) => reject(err));
+                }
+            }
         }
-        pushHero(heroModel).then((result) => resolve(result)).catch((err) => reject(err));
     } catch (error) {
-        console.log(error);
+        reject(error);
     }
 });
 
@@ -132,25 +142,29 @@ const getBDList = () => new Promise((resolve, reject) => {
  * @returns 
  */
 const delBD = (command) => new Promise((resolve, reject) => {
-    let entity = command.replace("/delbd", "").split("-");
-    let heroName = entity[0].trim();
-    console.log(heroName);
-    if (heroName != "") {
-        db.get(HEROES_GRID_KEY).then((heroes) => {
-            if (heroes.length > 0) {
-                if (heroes.some(h => h.name === heroName)) {
-                    let nHeroes = heroes.filter(h => h.name.toUpperCase() !== heroName.toUpperCase());
-                    db.set(HEROES_GRID_KEY, nHeroes).then(() => resolve(lang.sucNewListMsg)).catch((err) => reject(err));
+    try {
+        let entity = command.replace("/delbd", "").split("-");
+        let heroName = entity[0].trim();
+        console.log(heroName);
+        if (heroName != "") {
+            db.get(HEROES_GRID_KEY).then((heroes) => {
+                if (heroes.length > 0) {
+                    if (heroes.some(h => h.name === heroName)) {
+                        let nHeroes = heroes.filter(h => h.name.toUpperCase() !== heroName.toUpperCase());
+                        db.set(HEROES_GRID_KEY, nHeroes).then(() => resolve(lang.sucNewListMsg)).catch((err) => reject(err));
+                    } else {
+                        console.log("no such key");
+                        resolve(lang.noSuchHeroMsg);
+                    }
                 } else {
-                    console.log("no such key");
-                    resolve(lang.noSuchHeroMsg);
+                    resolve(lang.emptyListMsg);
                 }
-            } else {
-                resolve(lang.emptyListMsg);
-            }
-        });
-    } else {
-        reject(lang.wrongDelFormatMsg);
+            });
+        } else {
+            reject(lang.wrongDelFormatMsg);
+        }
+    } catch (err) {
+        reject(err);
     }
 });
 
@@ -192,17 +206,17 @@ const pushHero = (hero) => new Promise((resolve, reject) => {
 
 function congrat() {
     db.get(HEROES_GRID_KEY).then((heroList) => {
-        if (heroList.length > 0) {
+        if (heroList !== undefined && heroList.length > 0) {
             let [day, month, year] = new Date().toLocaleDateString("ru-RU").split(".");
             // A few person can have their birhdays at the same date
-            let heroList = heroList.filter(h => h.date == (day + "." + month));
-            console.log(JSON.stringify(heroList));
-            if (heroList.length > 0) {
-                heroList.forEach(hr => bot.sendMessage(config.chatId, hr.name + lang.congratsMsg));
+            let todayBdHeroList = heroList.filter(h => h.date == (day + "." + month));
+            console.log(JSON.stringify(todayBdHeroList));
+            if (todayBdHeroList.length > 0) {
+                todayBdHeroList.forEach((hr) => {
+                    bot.sendMessage(config.chatId, hr.name + lang.congratsMsg);
+                });
             }
         }
-    });
-}
-} catch(e) {
-  console.error(e);
+    })
+    .catch((err) => console.error(err));
 }

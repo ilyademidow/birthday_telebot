@@ -1,7 +1,7 @@
 exports.howToAddMsg = "Отправьте /addbd ник_в_Телеге - DD.MM\nНапример /addbd @Ilya_Demidov - 20.11";
 exports.wrongAddFormatMsg = `Неверный формат. Повторите команду ${this.howToAddMsg}`;
 
-exports.howToDelMsg = "Отправьте /delbd ник_в_Телеге - DD.MM\nНапример /delbd @Ilya_Demidov";
+exports.howToDelMsg = "Отправьте /delbd ник_в_Телеге\nНапример /delbd @Ilya_Demidov";
 exports.wrongDelFormatMsg = `Неверный формат. Повторите команду ${this.howToDelMsg}`;
 exports.wrongDateMsg = 'Неверная дата! Повторите команду';
 
