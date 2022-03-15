@@ -49,6 +49,8 @@ try {
     bot.start();
 } catch (err) {
     console.error(err);
+    bot.stop("restart after err")
+    bot.start();
 }
 
 /**
