@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: birthday-telebot
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: birthday-telebot
+ template:
+   metadata:
+     labels:
+       app: birthday-telebot
+   spec:
+     containers:
+     - name: birthday-telebot
+       image: ghcr.io/ilyademidow/birthday-telebot:latest
