@@ -14,10 +14,10 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:1
   deploy:
+    name: Redeploy k8s POD
     runs-on: ubuntu-latest
     steps:
      - uses: actions-hub/kubectl@master
-     - name: Redeploy k8s POD
        env:
          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
        with:
