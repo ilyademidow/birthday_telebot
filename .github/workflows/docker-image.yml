@@ -99,7 +99,7 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: delete secret secret github-cr
+          args: delete secret github-cr
           
       - name: Add new ghcr secret
         if: always()
