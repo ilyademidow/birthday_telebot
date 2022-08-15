@@ -106,9 +106,9 @@ jobs:
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-          registry: ghcr.io/ilyademidow/birthday-telebot
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          username: ilyademidow
+          password: ${{ secrets.PAT }}
         with:
           args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=ilyademidow@gmail.com
         
