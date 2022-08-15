@@ -18,3 +18,7 @@ spec:
        imagePullPolicy: Always
      imagePullSecrets:
       - name: github-cr
+     volumes:
+      - name: config-volume
+      configMap:
+        name: special-config
