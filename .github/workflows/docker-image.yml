@@ -92,13 +92,12 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
-  deploy:
-    name: Redeploy k8s POD
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions-hub/kubectl@master
-       env:
-         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-       with:
-         args: apply deployments -f telebot-deployment.yml
+      
+      
+      - name: Redeploy k8s POD
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply deployments -f telebot-deployment.yml
   
