@@ -19,5 +19,5 @@ spec:
      imagePullSecrets:
       - name: github-cr
      volumeMounts:
-      - name: config-json
-          mountPath: /tmp/telebot/lib
+      - name: config-js
+        mountPath: /tmp/telebot/lib
