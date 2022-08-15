@@ -16,4 +16,4 @@ spec:
      - name: birthday-telebot
        image: ghcr.io/ilyademidow/birthday-telebot:latest
      imagePullSecrets:
-      - name: githubcr
+      - name: github-cr
