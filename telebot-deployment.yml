@@ -15,5 +15,6 @@ spec:
      containers:
      - name: birthday-telebot
        image: ghcr.io/ilyademidow/birthday-telebot:latest
+       imagePullPolicy: Always
      imagePullSecrets:
       - name: github-cr
