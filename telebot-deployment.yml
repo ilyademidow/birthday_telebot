@@ -16,9 +16,12 @@ spec:
      - name: birthday-telebot
        image: ghcr.io/ilyademidow/birthday_telebot:latest
        imagePullPolicy: Always
-       restartPolicy: Always
        volumeMounts:
        - name: config-js
          mountPath: /tmp/telebot/lib
      imagePullSecrets:
       - name: github-cr
+     volumes:
+       - name: config-js
+         configMap:
+           name: config-js

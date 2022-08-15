@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-json
+  name: config-js
   namespace: default
 data:
   # add your parameters here
