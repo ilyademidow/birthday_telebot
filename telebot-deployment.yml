@@ -18,7 +18,6 @@ spec:
        imagePullPolicy: Always
      imagePullSecrets:
       - name: github-cr
-     volumes:
-      - name: config-volume
-      configMap:
-        name: special-config
+     volumeMounts:
+      - name: config-json
+          mountPath: /tmp/telebot/lib

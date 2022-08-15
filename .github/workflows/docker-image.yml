@@ -93,14 +93,6 @@ jobs:
       #   # against the sigstore community Fulcio instance.
       #   run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
       
-      - name: Create configmap
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-          CFMAP: ${{ secrets.CONFIG_MAP }}
-        with:
-          args: create configmap telebot-parameters --from-file=${{ env.CFMAP }}
-      
       # - name: Delete old ghcr secret
       #   uses: actions-hub/kubectl@master
       #   env:

@@ -36,3 +36,7 @@ exports.congratTimeHour =
 1. Install all required libraries. Run `npm install`
 1. Run `node bd-telebot.js`
 1. Enjoy!
+
+### How to run it in Kubernetes
+1. Copy config-js.yml and fill by your parameters
+1. Run github Actions
