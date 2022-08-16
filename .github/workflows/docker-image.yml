@@ -98,4 +98,8 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
           chart: telebot-deployment.yml
+          values: |
+            telebot_auth_id: ${{ secrets.TELEBOT_AUTH_ID }}
+            telebot_channel_id: ${{ secrets.TELEBOT_CHANNEL_ID }}
+            telebot_name: ${{ secrets.TELEBOT_NAME }}
   
