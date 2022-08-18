@@ -80,14 +80,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Add new ghcr secret
-        id: add-k8s-secret
         if: always()
         uses: actions-hub/kubectl@master
         env:
