@@ -96,4 +96,4 @@ jobs:
         uses: WyriHaximus/github-action-helm3@v2
         with:
           exec: helm upgrade --install telechart ./.helm/telechart/ --set telebot_auth_id="${{ secrets.TELEBOT_AUTH_ID }}" --set telebot_channel_id="${{ secrets.TELEBOT_CHANNEL_ID }}" --set telebot_name="${{ secrets.TELEBOT_NAME }}" --force
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}  
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'  
