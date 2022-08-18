@@ -1,9 +1,16 @@
-const config = require('./lib/config');
 const TeleBot = require('telebot');
 const { DateTime } = require("luxon");
 const lang = require("./lang/ru");
 let schedule = require('node-schedule');
 let jsoning = require('jsoning');
+
+const config = {
+    authId: process.env.TELEBOT_AUTH_ID,
+    chatId: process.env.TELEBOT_CHAT_ID,
+    apBotName: process.env.TELEBOT_NAME,
+    dbFile: "/tmp/telebot/database.json",
+    congratTimeHour: 5
+};
 
 const HEROES_GRID_KEY = "heroes";
 
