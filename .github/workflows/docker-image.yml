@@ -91,12 +91,8 @@ jobs:
 #         with:
 #           args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=ilyademidow@gmail.com
       - run: |
+          sudo snap install helm --classic
           echo ${{ secrets.KUBE_CONFIG }} >> kubeconfig.bs64
           base64 -d kubeconfig.bs64 >> kubeconfig.yml
           export KUBECONFIG=`pwd`/kubeconfig.yml
-        
-      - name: Redeploy k8s POD
-        if: always()
-        uses: WyriHaximus/github-action-helm3@master
-        with:
-          exec: helm upgrade --install telechart ./.helm/telechart/ --set telebot_auth_id="${{ secrets.TELEBOT_AUTH_ID }}" --set telebot_channel_id="${{ secrets.TELEBOT_CHANNEL_ID }}" --set telebot_name="${{ secrets.TELEBOT_NAME }}" --force 
+          helm upgrade --install telechart ./.helm/telechart/ --set telebot_auth_id="${{ secrets.TELEBOT_AUTH_ID }}" --set telebot_channel_id="${{ secrets.TELEBOT_CHANNEL_ID }}" --set telebot_name="${{ secrets.TELEBOT_NAME }}" --force 
