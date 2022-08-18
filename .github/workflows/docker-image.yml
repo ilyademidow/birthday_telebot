@@ -82,14 +82,12 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
-    steps:  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Add new ghcr secret
+        id: add k8s secret to pull from ghcr.io
         if: always()
         uses: actions-hub/kubectl@master
         env:
@@ -97,8 +95,9 @@ jobs:
           registry: ghcr.io
           username: ilyademidow
           password: ${{ secrets.PAT }}
+          email: ${{ secrets.email }}
         with:
-          args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=ilyademidow@gmail.com
+          args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=${{ env.email }}
       
       - run: |
           sudo snap install helm --classic

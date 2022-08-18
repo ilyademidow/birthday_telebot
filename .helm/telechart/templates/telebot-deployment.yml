@@ -23,5 +23,12 @@ spec:
           value: "{{ .Values.telebot_channel_id }}"
         - name: TELEBOT_NAME
           value: "{{ .Values.telebot_name }}"
+        volumeMounts:
+          - name: pers-stor
+            mountPath: /tmp/telebot
+        volumes:
+        - name: pers-stor
+          persistentVolumeClaim:
+            claimName: db
       imagePullSecrets:
         - name: github-cr
