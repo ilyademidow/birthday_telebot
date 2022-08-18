@@ -87,7 +87,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Add new ghcr secret
-        id: add k8s secret to pull from ghcr.io
+        id: add-k8s-secret
         if: always()
         uses: actions-hub/kubectl@master
         env:
