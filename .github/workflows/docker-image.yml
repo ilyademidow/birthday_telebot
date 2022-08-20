@@ -92,8 +92,8 @@ jobs:
           args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=${{ env.email }}
       
       - name: Deploy to K8s
-      - if: always()
-      - run: |
+        if: always()
+        run: |
           sudo snap install helm --classic
           echo ${{ secrets.KUBE_CONFIG }} >> kubeconfig.bs64
           base64 -d kubeconfig.bs64 >> kubeconfig.yml
