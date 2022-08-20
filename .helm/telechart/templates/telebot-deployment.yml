@@ -12,6 +12,10 @@ spec:
       labels:
         app: birthday-telebot
     spec:
+      volumes:
+        - name: pers-stor
+          persistentVolumeClaim:
+            claimName: db
       containers:
       - name: birthday-telebot
         image: ghcr.io/ilyademidow/birthday_telebot:latest
@@ -26,9 +30,5 @@ spec:
         volumeMounts:
           - name: pers-stor
             mountPath: /tmp/telebot
-        volumes:
-        - name: pers-stor
-          persistentVolumeClaim:
-            claimName: db
       imagePullSecrets:
         - name: github-cr
