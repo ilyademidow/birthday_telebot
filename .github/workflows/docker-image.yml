@@ -81,7 +81,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Add new ghcr secret
-        if: always()
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
@@ -92,6 +91,7 @@ jobs:
         with:
           args: create secret docker-registry github-cr --docker-server=${{ env.registry }} --docker-username=${{ env.username }} --docker-password=${{ env.password }} --docker-email=${{ env.email }}
       
+      - if: always()
       - run: |
           sudo snap install helm --classic
           echo ${{ secrets.KUBE_CONFIG }} >> kubeconfig.bs64
