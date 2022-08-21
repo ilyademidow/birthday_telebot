@@ -8,7 +8,7 @@ const config = {
     authId: process.env.TELEBOT_AUTH_ID,
     chatId: process.env.TELEBOT_CHAT_ID,
     apBotName: process.env.TELEBOT_NAME,
-    dbFile: "/tmp/telebot/database.json",
+    dbFile: "/tmp/telebot/db/database.json",
     congratTimeHour: 5
 };
 

@@ -14,8 +14,8 @@ spec:
     spec:
       volumes:
         - name: pers-stor
-          persistentVolumeClaim:
-            claimName: db
+          hostPath:
+            path: /tmp/kubevolume
       containers:
       - name: birthday-telebot
         image: ghcr.io/ilyademidow/birthday_telebot:latest
@@ -29,6 +29,6 @@ spec:
           value: "{{ .Values.telebot_name }}"
         volumeMounts:
           - name: pers-stor
-            mountPath: /tmp/telebot
+            mountPath: /tmp/telebot/db
       imagePullSecrets:
         - name: github-cr
