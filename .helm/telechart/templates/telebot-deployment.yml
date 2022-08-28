@@ -23,8 +23,8 @@ spec:
         env:
         - name: TELEBOT_AUTH_ID
           value: "{{ .Values.telebot_auth_id }}"
-        - name: TELEBOT_CHANNEL_ID
-          value: "{{ .Values.telebot_channel_id }}"
+        - name: TELEBOT_CHAT_ID
+          value: "{{ .Values.telebot_chat_id }}"
         - name: TELEBOT_NAME
           value: "{{ .Values.telebot_name }}"
         volumeMounts:
