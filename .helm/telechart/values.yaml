@@ -82,5 +82,5 @@ tolerations: []
 affinity: {}
 
 telebot_auth_id: "123"
-telebot_channel_id: "123"
+telebot_chat_id: "123"
 telebot_name: "123"
